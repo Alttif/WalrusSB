@@ -1,14 +1,14 @@
-var express = require("express");
-var router = express.Router();
-var bcrypt = require('bcryptjs');
-var User = require('../models/User');
+const express = require("express");
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
 
 router.get("/login", (req, res) => res.render("index"));
 
 router.get("/register", (req, res) => res.render("register"))
 
 router.post("/register", (req, res) => {
-    var { name, email, password, password2 } = req.body;
+    const { name, email, password, password2 } = req.body;
     let errors = [];
 
     if (!name || !email || !password || !password2){
@@ -29,7 +29,8 @@ router.post("/register", (req, res) => {
             password2
         });
     } else {
-        User.findOne({ email: email }, function(err, user) { console.log(user)}).then(user => {
+        
+        User.findOne({email: email}).then(user => {
             if (user) {               
                 errors.push({msg: "Sähköposti on jo kannassa!"});
                 res.render('register', {
@@ -45,10 +46,23 @@ router.post("/register", (req, res) => {
                     email,
                     password
                 });
-                console.log(newUser);
-                res.send("hello");
+            //Salasanan salaus
+
+            bcrypt.genSalt(10, (err, salt) => 
+            bcrypt.hash(newUser.password, salt, (err, hash) =>{
+                if(err) throw err;
+
+                newUser.password = hash;
+            newUser.save()
+            .then(user => {
+                res.redirect('index');
+            })
+            .catch(err => console.log(err));
+        }));
             }
         });
+
+
         
        
     }
