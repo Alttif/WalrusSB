@@ -86,6 +86,6 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) =>{
     req.logout();
     req.flash('success_msg', "Kirjauduit ulos");
-    res.redirect('/');
+    res.render('index', {viesti: "Sinut kirjattiin ulos onnistuneesti!"});
 });
  module.exports = router;

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet"  href="./stylesheets/index.css">   
+    <link rel="stylesheet"  href="/stylesheets/index.css">   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   </head>
   <body>
@@ -14,7 +14,7 @@
     
     <nav class="navbar navbar-expand-sm navbar-dark">
       <a class="navbar-brand" href="#">
-        <img src="./images/WalrusLogo.jpg" alt="logo" id="navLogo">
+        <img src="/images/WalrusLogo.jpg" alt="logo" id="navLogo">
       </a>
       
       <!-- Links -->
@@ -43,17 +43,11 @@
       <div class="row">
         <div class="col-sm-4">
           <h2>Seuraava Ottelu</h2>
-            <div id="tulevatOttelut">
-            <script id="haeSeuraavaOtteluTemplate" type="text/x-handlebars-template">
-                                       
+            <div id="tulevatOttelut">                                      
                 <P> Vastustaja : \{{vastustaja}}</P><br>
                 <p>Päivä : \{{paiva}}</p><br>
                 <p>Kello : \{{aika}}</p><br>
-                <p>Kotipeli : \{{kotiVieras}}</p>
-              
-              
-             
-            </script>
+                <p>Kotipeli : \{{kotiVieras}}</p>          
           </div>
           
           <ul class="nav nav-pills flex-column">
@@ -74,7 +68,7 @@
         </div>
         <div class="col-sm-8">
 
-            <p>{{success_msg}}{{error_msg}}{{error}}</p>
+            <p>{{viesti}}</p>
 
         </div>
       </div>

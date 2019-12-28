@@ -7,6 +7,7 @@ var passport = require('passport');
 
 var app = express();
 app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/node_modules'));
 
 //Passport config
 require('./config/passport')(passport);
@@ -53,6 +54,7 @@ app.use((req, res, next) =>{
 //Routes
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
+app.use("/ottelut", require("./routes/ottelut"));
 
 
 
