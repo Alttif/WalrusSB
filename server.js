@@ -55,6 +55,7 @@ app.use((req, res, next) =>{
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 app.use("/ottelut", require("./routes/ottelut"));
+app.use("/pelaaja", require("./routes/pelaaja"));
 
 
 

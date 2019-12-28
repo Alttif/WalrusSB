@@ -4,7 +4,8 @@
     <title>WalrusWarkausSB</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <script src="/handlebars-v4.5.3.js"></script>
+    <script src="/views/indexhtm.js"></script>
     <link rel="stylesheet"  href="/stylesheets/index.css">   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   </head>
@@ -25,7 +26,8 @@
       <div class="row justify-content-center">
         
         <div class="col-sm-4">
-            <p>{{success_msg}}{{error_msg}}{{error}}</p>
+
+            {{success_msg}}{{error_msg}}{{error}}
             <form action="/users/login" method="POST" style="margin: 30px;">
             <div class="form-group">    
             <input type="email" id="email" name="email" class="form-control" placeholder="Sähköposti" value="{{email}}" required/>
@@ -37,7 +39,6 @@
             <button type="submit">Kirjaudu</button>
             <button type="button" onclick="window.location.href = '/'">Peruuta</button>
             </form>
-            <p>Ei tiliä? <a href="/users/register">Rekisteröidy</a></p>
             <div>
 
 
@@ -56,8 +57,6 @@
   </footer>
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/handlebars-v4.5.3.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="/data/index.js"></script>
     </body>
 </html>

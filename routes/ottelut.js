@@ -2,11 +2,12 @@ var express = require("express");
 var router = express.Router();
 var Ottelu = require("../models/Ottelu");
 var url = require('url');
+var {ensureAuthenticated} = require('../config/auth');
 
 
 
 //Ottelun lisäys
-router.post("/ottelu", (req, res) =>{
+router.post("/ottelu", ensureAuthenticated, (req, res) =>{
     var {vastustaja, aika, kotipeli, lopputulos} = req.body;
 
     Ottelu.findOne({aika: aika}).then(ottelu => {
@@ -42,12 +43,36 @@ router.post("/ottelu", (req, res) =>{
 });
 
 //Seuraavan ottelun haku
-router.get("/suraavaOttelu", (req, res) =>{
-    var nyt = new Date.now();
+router.get("/seuraavaOttelu", (req, res) =>{
+    var nyt = Date.now();
 
-    Ottelut.find({
-        aika: {$lt: nyt}
+    Ottelu.aggregate([
+        {
+            $project : {
+                myDate : 1,
+                otherData : 1,
+                difference : {
+                    $abs : {
+                        $subtract : [new Date(), "$aika"]
+                    }
+                }
+            }
+        },
+        {
+            $sort : {difference : 1}
+        },
+        {
+            $limit : 1
+        }
+        ])
+    .then(ottelu =>{
+        Ottelu.findOne({_id: ottelu[0]._id}).then(otteluu =>{
+            console.log(otteluu);
+            res.send(otteluu);
+        })
+
     })
+    .catch(err => console.log(err));
 });
 
  module.exports = router;

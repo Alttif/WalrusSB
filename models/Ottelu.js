@@ -20,5 +20,5 @@ const OtteluSchema = new mongoose.Schema({
 
 
 });
-const Ottelu = mongoose.model("Ottelu", OtteluSchema);
+const Ottelu = mongoose.model("Ottelu", OtteluSchema, "ottelu");
 module.exports = Ottelu;

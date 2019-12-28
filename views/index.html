@@ -4,9 +4,9 @@
     <title>WalrusWarkausSB</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <link rel="stylesheet"  href="/stylesheets/index.css">   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
   </head>
   <body>
 
@@ -17,24 +17,13 @@
         <img src="/images/WalrusLogo.jpg" alt="logo" id="navLogo">
       </a>
       
-      <!-- Links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Joukkue</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Ottelut</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Kuvia</a>
-        </li>
-      </ul>
+
       <ul class="nav navbar-nav navbar-right">
         <li class="nav-item">
-          <a class="nav-link" href="/users/login">Kirjaudu</a>
+          <a class="nav-link" href="/users/login">KirjauduHallintaan</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/users/register">Rekisteröidy</a>
+          <a class="nav-link" href="/users/register">RekisteröidyVAINTESTIKÄYTTÖÖN</a>
         </li>
       </ul>
     </nav>
@@ -43,33 +32,51 @@
       <div class="row">
         <div class="col-sm-4">
           <h2>Seuraava Ottelu</h2>
-            <div id="tulevatOttelut">                                      
-                <P> Vastustaja : \{{vastustaja}}</P><br>
-                <p>Päivä : \{{paiva}}</p><br>
-                <p>Kello : \{{aika}}</p><br>
-                <p>Kotipeli : \{{kotiVieras}}</p>          
+          <div id="tulevatOttelut">
+            <script id="haeSeuraavaOtteluTemplate" type="text/x-handlebars-template">
+                                       
+                <P> Vastustaja : {{vastustaja}}</P><br>
+                <p>Päivä : {{paiva}}</p><br>
+                <p>Kello : {{aika}}</p><br>
+                <p>Koti/vieras : {{kotiVieras}}</p>
+              
+              
+             
+            </script>
           </div>
+         
           
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-          </ul>
-          <hr class="d-sm-none">
         </div>
         <div class="col-sm-8">
+          <ul class="nav nav-pills flex-row">
+            <li class="nav-item">
+              <button type="button" data-section="section1" class="btn segmentedButton ">Uutiset</button>
+            </li>
+            <li class="nav-item">
+              <button type="button" data-section="section2" class="btn segmentedButton">Pelaajat</button>
+            </li>
+            <li class="nav-item">
+              <button type="button" data-section="section3" class="btn segmentedButton">Ottelut</button>
 
-            <p>{{viesti}}</p>
-
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" data-section="section1">Disabled</a>
+            </li>
+          </ul>
+          <div class="content-section" id="section1">
+          <h1>Tähän tulisi otsikko</h1>
+          <article>Tässä voisi olla uusimpia kuulumisia ja uutisia.</article>
+          <h2>Tasapelillä yöhön!</h2>
+          <article>Voisi kertoilla vaikka mahtavasta tasapelistä sarjajumboa vastaan!</article>
+        </div>
+        <div class="content-section" id="section2">
+          <h1> Section 2 </h1>
+          <p>Section 2 Content goes here</p>
+        </div>
+        <div class="content-section" id="section3">
+          <h1> Section 3 </h1>
+          <p>Section 3 Content goes here</p>
+        </div>
         </div>
       </div>
     </div>
@@ -80,43 +87,15 @@
           <a href="mailto: altti.fihlman@gmail.com" id="footerLink"> Walrus Warkaus</a>
       </div>
   </footer>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Kirjaudu</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/users/register" method="POST">
-            
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Email:</label>
-              <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Sähköposti"/>
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Salasana:</label>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Salasana" minlength="6"/>
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Salasana uudelleen:</label>
-              <input type="password" id="password2" name="password2" class="form-control" placeholder="Anna salasana uudelleen"/>
-            </div>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Kirjaudu</button>
-          </form>
-        </div>
-        <div class="modal-footer">
+  
+  <script src="/handlebars-v4.5.3.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="/indexhtm.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-        </div>
-      </div>
-    </div>
-  </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/handlebars-v4.5.3.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="/index.js"></script>
     </body>
+
+
+
+ 
 </html>
