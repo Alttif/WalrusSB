@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WalrusWarkausSB</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet"  href="/stylesheets/index.css">   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+
+
+    
+    <nav class="navbar navbar-expand-sm navbar-dark">
+      <a class="navbar-brand" href="#">
+        <img src="/images/WalrusLogo.jpg" alt="logo" id="navLogo">
+      </a>
+      
+
+      
+    </nav>
+    
+    <div class="container" style="margin-top:30px">
+      <div class="row justify-content-center">
+        
+        <div class="col-sm-4">
+            <p>{{success_msg}}{{error_msg}}{{error}}</p>
+            <form action="/users/login" method="POST" style="margin: 30px;">
+            <div class="form-group">    
+            <input type="email" id="email" name="email" class="form-control" placeholder="Sähköposti" value="{{email}}" required/>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Salasana" value="{{password}}" required/>
+            </div>
+
+            <button type="submit">Kirjaudu</button>
+            <button type="button" onclick="window.location.href = '/'">Peruuta</button>
+            </form>
+            <p>Ei tiliä? <a href="/users/register">Rekisteröidy</a></p>
+            <div>
+
+
+
+
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="page-footer fixed-bottom ">
+      <div class="footer-copyright text-center">
+          © 2018 Copyright:
+          <a href="mailto: altti.fihlman@gmail.com" id="footerLink"> Walrus Warkaus</a>
+      </div>
+  </footer>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/handlebars-v4.5.3.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/data/index.js"></script>
+    </body>
+</html>

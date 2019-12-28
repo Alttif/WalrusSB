@@ -3,11 +3,13 @@ var mongoose = require('mongoose');
 var cons = require('consolidate');
 var flash = require('connect-flash');
 var session = require('express-session');
+var passport = require('passport');
 
 var app = express();
 app.use(express.static(__dirname + '/views'));
 
-
+//Passport config
+require('./config/passport')(passport);
 
 // Mongo config
 var db = require('./config/keys').MongoURI;
@@ -24,6 +26,8 @@ app.set('view engine', 'html');
 //Bodyparser
 app.use(express.urlencoded({ extended: false }));
 
+
+//Session
 app.use(session({
     secret: 'salainen',
     resave: true,
@@ -31,7 +35,20 @@ app.use(session({
 
 }));
 
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Flash
 app.use(flash());
+
+//Messages
+app.use((req, res, next) =>{
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
 
 //Routes
 app.use("/", require("./routes/index"));

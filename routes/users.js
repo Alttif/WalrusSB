@@ -1,14 +1,17 @@
-const express = require("express");
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+var express = require("express");
+var router = express.Router();
+var bcrypt = require('bcryptjs');
+var User = require('../models/User');
+var passport = require('passport');
 
-router.get("/login", (req, res) => res.render("index"));
+router.get("/login", (req, res) => res.render("login"));
 
 router.get("/register", (req, res) => res.render("register"))
 
+
+//rekisteröinnin käsittely
 router.post("/register", (req, res) => {
-    const { name, email, password, password2 } = req.body;
+    var { name, email, password, password2 } = req.body;
     let errors = [];
 
     if (!name || !email || !password || !password2){
@@ -32,7 +35,7 @@ router.post("/register", (req, res) => {
         
         User.findOne({email: email}).then(user => {
             if (user) {               
-                errors.push({msg: "Sähköposti on jo kannassa!"});
+                errors.push({msq: "Sähköposti on jo kannassa!"});
                 res.render('register', {
                     errors,
                     name,
@@ -53,9 +56,11 @@ router.post("/register", (req, res) => {
                 if(err) throw err;
 
                 newUser.password = hash;
+
+            req.flash('success_msg', "Rekisteröinti onnistui, voit nyt kirjautua sisään");    
             newUser.save()
             .then(user => {
-                res.redirect('index');
+                res.redirect('/users/login');
             })
             .catch(err => console.log(err));
         }));
@@ -68,4 +73,19 @@ router.post("/register", (req, res) => {
     }
 });
 
+//Login käsittely
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/jasenet',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    })(req, res, next);
+});
+
+//logout käsittely
+router.get('/logout', (req, res) =>{
+    req.logout();
+    req.flash('success_msg', "Kirjauduit ulos");
+    res.redirect('/');
+});
  module.exports = router;
