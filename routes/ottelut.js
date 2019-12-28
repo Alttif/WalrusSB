@@ -9,7 +9,7 @@ var url = require('url');
 router.post("/ottelu", (req, res) =>{
     var {vastustaja, aika, kotipeli, lopputulos} = req.body;
 
-    Ottelu.findOne({vastustaja: vastustaja}).then(ottelu => {
+    Ottelu.findOne({aika: aika}).then(ottelu => {
         if (ottelu) {   
             console.log(aika);    
 

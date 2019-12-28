@@ -7,7 +7,7 @@ const OtteluSchema = new mongoose.Schema({
     },
     aika: {
         type: Date,
-
+        required: true
 
     },
     kotipeli: {
