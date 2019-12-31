@@ -101,5 +101,46 @@ router.get("/muokkaaOttelu/:id", (req, res) =>{
     }})
             .catch(err => console.log(err));
 });
+//Ottelun Muokkaus
+router.post("/ottelunMuokkaus", ensureAuthenticated, (req, res) =>{
+    var {_id, vastustaja, aika, kotipeli, lopputulos} = req.body;
+    console.log(_id, vastustaja,aika,kotipeli,lopputulos);
+    Ottelu.updateOne(
+        {_id: _id},
+        {
+            vastustaja: vastustaja,
+            aika: aika,
+            kotipeli: kotipeli,
+            lopputulos: lopputulos
+            
+        }
 
+    ).then(ottelu => {
+        console.log(ottelu);
+        res.redirect(url.format({
+            pathname:"/jasenet",
+            query: {
+                
+             }
+          }));
+    })
+    .catch(err => console.log(err));
+
+        
+});
+
+//Ottelun Poisto
+router.post("/poistaOttelu/:id", ensureAuthenticated, function(req, res){
+    var id = req.params.id;
+    console.log(id);
+    Ottelu.findOneAndDelete({_id: id}).then(poisto =>{
+        res.redirect(url.format({
+            pathname:"/jasenet",
+            query: {
+              
+             }
+          }));
+    })
+    .catch(err => console.log(err));
+})
  module.exports = router;

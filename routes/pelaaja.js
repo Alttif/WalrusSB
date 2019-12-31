@@ -65,7 +65,7 @@ router.get("/muokkaaPelaaja/:pelinumero", (req, res) =>{
     }})
             .catch(err => console.log(err));
 });
-router.post("/muokkaaPelaajaa", (req, res) =>{
+router.post("/muokkaaPelaajaa", ensureAuthenticated, (req, res) =>{
     var {nimi, pelinumero, katisyys, pelipaikka, motto} = req.body;
     Pelaaja.updateOne(
         {pelinumero: pelinumero},
@@ -93,7 +93,7 @@ router.post("/muokkaaPelaajaa", (req, res) =>{
 
 //Pelaajan Poisto
 
-router.post("/poistaPelaaja/:pelinumero", function(req, res){
+router.post("/poistaPelaaja/:pelinumero", ensureAuthenticated, function(req, res){
     var pelinumero = req.params.pelinumero;
     Pelaaja.findOneAndDelete({pelinumero: pelinumero}).then(poisto =>{
         res.redirect(url.format({
