@@ -37,3 +37,21 @@ body {
 #section3 {
     display: none;
   }  
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  .pelaajakuva {
+      max-width: 60px;
+      max-height: 80px;
+  }
+  

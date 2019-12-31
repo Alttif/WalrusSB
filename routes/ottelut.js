@@ -75,4 +75,31 @@ router.get("/seuraavaOttelu", (req, res) =>{
     .catch(err => console.log(err));
 });
 
+//Otteluiden haku
+router.get("/OtteluHaku", (req, res) =>{
+    var {vastustaja, aika, kotipeli, lopputulos} = req.body;
+
+    Ottelu.find({}).then(ottelu => {
+        if (ottelu) {       
+            res.send(ottelu)
+        } else{
+            res.send(null);
+    }})
+            .catch(err => console.log(err));
+});
+
+//Ottelun haku numerolla
+router.get("/muokkaaOttelu/:id", (req, res) =>{
+    var id = req.params.id;
+
+
+    Ottelu.findOne({_id: id}).then(ottelu => {
+        if (ottelu) {       
+            res.send(ottelu)
+        } else{
+            res.send(null);
+    }})
+            .catch(err => console.log(err));
+});
+
  module.exports = router;

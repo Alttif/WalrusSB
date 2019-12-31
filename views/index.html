@@ -54,14 +54,13 @@
             </li>
             <li class="nav-item">
               <button type="button" data-section="section2" class="btn segmentedButton">Pelaajat</button>
+
             </li>
             <li class="nav-item">
               <button type="button" data-section="section3" class="btn segmentedButton">Ottelut</button>
 
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" data-section="section1">Disabled</a>
-            </li>
+
           </ul>
           <div class="content-section" id="section1">
           <h1>Tähän tulisi otsikko</h1>
@@ -69,13 +68,60 @@
           <h2>Tasapelillä yöhön!</h2>
           <article>Voisi kertoilla vaikka mahtavasta tasapelistä sarjajumboa vastaan!</article>
         </div>
-        <div class="content-section" id="section2">
-          <h1> Section 2 </h1>
-          <p>Section 2 Content goes here</p>
+        <div class="content-section" id="section2"> 
+          <h2>Pelaajat</h2>
+          <div id="pelaajat"></div> 
+            <script id="pelaajatTemplate" type="text/x-handlebars-template">
+              <table id="pelaajatTable">
+                <tr>
+                  <th>Kuva</th>
+                  <th>Nimi</th>
+                  <th>Pelinumero</th>
+                  <th>Kätisyys</th>
+                  <th>Pelipaikka</th>
+                  <th>Motto</th>
+                </tr>
+
+                {{#each .}}
+                <tr>
+                  <td><img class="pelaajakuva" src="./images/pelaajat/{{pelinumero}}.jpg"></td>
+                  <td>{{nimi}}</td>
+                  <td>{{pelinumero}}</td>
+                  <td>{{katisyys}}</td>
+                  <td>{{pelipaikka}}</td>
+                  <td>{{motto}}</td>
+                </tr>
+                {{/each}}                          
+          
+ 
+        </table>                          
+        </script> 
+          
+
         </div>
         <div class="content-section" id="section3">
-          <h1> Section 3 </h1>
-          <p>Section 3 Content goes here</p>
+          <div id="ottelut"></div> 
+          <script id="ottelutTableTemplate" type="text/x-handlebars-template">                                     
+              <table id="ottelutTable">
+                <tr>
+                  <th>Vastustaja</th>
+                  <th>Aika</th>
+                  <th>Koti/Vieras peli</th>
+                  <th>Lopputulos</th>
+                </tr>
+
+                {{#each .}}
+                <tr>
+                  <td>{{vastustaja}}</td>
+                  <td>{{aika}}</td>
+                  <td>{{kotipeli}}</td>
+                  <td>{{lopputulos}}</td>
+                </tr>
+                {{/each}}                          
+          
+ 
+        </table> 
+      </script>
         </div>
         </div>
       </div>

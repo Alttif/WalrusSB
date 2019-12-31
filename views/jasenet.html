@@ -4,20 +4,13 @@
     <title>WalrusWarkausSB</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="stylesheet"  href="./stylesheets/index.css">   
+    <link rel="stylesheet"  href="/stylesheets/jasenet.css">   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-
-
-
-
+    
   </head>
   <body>
 
 
-    
     <nav class="navbar navbar-expand-sm navbar-dark">
       <a class="navbar-brand" href="#">
         <img src="./images/WalrusLogo.jpg" alt="logo" id="navLogo">
@@ -33,67 +26,95 @@
     
     <div class="container" style="margin-top:30px">
       <div class="row">
-        <div class="col-sm-4">         
+        <div class="col-sm-4">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#ottelunLisaysModal" style="background-color: yellow;">Lisää Ottelu</a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#ottelunLisaysModal" style="color: white; background-color: blue;">Lisää Ottelu</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" data-toggle="modal" data-target="#pelaajanLisaysModal" style="background-color: yellow;">Lisää Pelaaja</a>
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#pelaajanLisaysModal" style="color: white; background-color: blue;">Lisää Pelaaja</a>
             </li>
           </ul>
           <hr class="d-sm-none">
+         
+          
         </div>
         <div class="col-sm-8">
-          {{#each errors}}
-          <p>{{msg}}</p>
-          {{/each}}
-          {{viesti}}
-          <div class="col-sm-8">
-            <ul class="nav nav-pills flex-row">
-              <li class="nav-item">
-                <button type="button" data-section="section1" class="btn segmentedButton">Pelaajat</button>
-              </li>
-              <li class="nav-item">
-                <button type="button" data-section="section2" class="btn segmentedButton">Ottelut</button> 
-              </li>
-            </ul>
 
-          <div class="content-section" id="section1">
-            <div id="pelaajatTable">
-              <script id="pelaajatTableTemplate" type="text/x-handlebars-template">
-                                         
-                  <table>
-                    <tr>
-                      <th>Nimi</th>
-                      <th>Pelinumero</th>
-                      <th>Kätisyys</th>
-                      <th>Pelipaikka</th>
-                      <th>Motto</th>
-                    </tr>
-                    {{#pelaaja}}
-                    <tr>
-                      <th>{{nimi}}</th>
-                      <th>{{pelinumero}}</th>
-                      <th>{{katisyys}}</th>
-                      <th>{{pelipaikka}}</th>
-                      <th>{{motto}}</th>
-                    </tr>
+          <ul class="nav nav-pills flex-row">
 
-                  </table>
-                
-                
-               
-              </script>
-            </div>
-          </div>
-          <div class="content-section" id="section2">
-            <h1> Section 3 </h1>
-            <p>Section 3 Content goes here</p>
-          </div>
-          </div>
+            <li class="nav-item">
+              <button type="button" data-section="section1" class="btn segmentedButton">Pelaajat</button>
+
+            </li>
+            <li class="nav-item">
+              <button type="button" data-section="section2" class="btn segmentedButton">Ottelut</button>
+
+            </li>
+
+          </ul>
+
+        <div class="content-section" id="section1"> 
+
+          <div id="pelaajat"></div>
+            <script id="pelaajatTableTemplate" type="text/x-handlebars-template">                                     
+                <table id="pelaajatTable">
+                  <tr>
+                    <th>Nimi</th>
+                    <th>Pelinumero</th>
+                    <th>Kätisyys</th>
+                    <th>Pelipaikka</th>
+                    <th>Motto</th>
+                    <th>Muokkaus</th>
+                  </tr>
+
+                  \{{#each .}}
+                  <tr>
+                    <td>\{{nimi}}</td>
+                    <td>\{{pelinumero}}</td>
+                    <td>\{{katisyys}}</td>
+                    <td>\{{pelipaikka}}</td>
+                    <td>\{{motto}}</td>
+                    <td><button id="poista" onclick="poistaPelaaja(\{{pelinumero}})">Poista</button>
+                    <button id="muokkaa" onclick="muokkaaPelaaja(\{{pelinumero}})">Muokkaa</button></td>
+                  </tr>
+                  \{{/each}}                          
+            
+   
+          </table> 
+        </script> 
+          
+
         </div>
-      </div>
+        <div class="content-section" id="section2">
+          <div id="ottelut"></div> 
+          <script id="ottelutTableTemplate" type="text/x-handlebars-template">                                     
+              <table id="ottelutTable">
+                <tr>
+                  <th>ID</th>
+                  <th>Vastustaja</th>
+                  <th>Aika</th>
+                  <th>Koti/Vieras peli</th>
+                  <th>Lopputulos</th>
+                  <th>Muokkaus</th>
+                </tr>
+
+                \{{#each .}}
+                <tr>
+                  <td>\{{_id}}</td>
+                  <td>\{{vastustaja}}</td>
+                  <td>\{{aika}}</td>
+                  <td>\{{kotipeli}}</td>
+                  <td>\{{lopputulos}}</td>
+                  <td><button type="button" id="\{{_id}}"onclick="muokkaaOttelu(this.id)">Muokkaa</button>
+                    <button id="poista{{_id}}">Poista</button></td>
+                </tr>
+                \{{/each}}                          
+          
+ 
+        </table> 
+      </script>
+        </div>
         </div>
       </div>
     </div>
@@ -104,42 +125,22 @@
           <a href="mailto: altti.fihlman@gmail.com" id="footerLink"> Walrus Warkaus</a>
       </div>
   </footer>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Kirjaudu</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/users/register" method="POST">
-            
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Email:</label>
-              <input type="email" id="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Sähköposti"/>
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Salasana:</label>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Salasana" minlength="6"/>
-            </div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Salasana uudelleen:</label>
-              <input type="password" id="password2" name="password2" class="form-control" placeholder="Anna salasana uudelleen"/>
-            </div>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Kirjaudu</button>
-          </form>
-        </div>
-        <div class="modal-footer">
+  
+  <script src="/handlebars-v4.5.3.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="/jasenet.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-        </div>
-      </div>
-    </div>
-  </div>
+    </body>
 
-  <!-- Ottelun lisäys-->
+
+
+ 
+</html>
+
+
+
+      <!-- Ottelun lisäys-->
   <div class="modal fade" id="ottelunLisaysModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -181,7 +182,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="ottelunLisaysTitel">Pelaajan Lisäys</h5>
+          <h5 class="modal-title" id="PelaajanLisaysTitle">Pelaajan Lisäys</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -233,10 +234,98 @@
       </div>
     </div>
   </div>
+  <!-- Pelaajan muokkaus-->
+  <div class="modal fade" id="pelaajanMuokkausModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pelaajanMuokkausTitel">Pelaajan Muokkaus</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/pelaaja/muokkaaPelaajaa" method="post">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Nimi:</label>
+              <input type="text" class="form-control" id="nimi" name="nimi" required>
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Pelinumero (Pelinumeroa voi muokata vain poistamalla pelaajan!)</label>             
+                <input class="form-control" type="number" id="pelinumero"  name="pelinumero" required readonly>
+            </div>
+            <fieldset class="form-group">
+              <legend>Kätisyys</legend>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="katisyys" id="katisyys1" value="Vasen" >
+                  Vasen
+                </label>
+              </div>
+              <div class="form-check">
+              <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="katisyys" id="katisyys2" value="Oikea">
+                  Oikea
+                </label>
+              </div>             
+            </fieldset>
+            <div class="form-group">
+              <label for="exampleSelect1">Pelipaikka</label>
+              <select class="form-control" id="pelipaikka" name="pelipaikka">
+                <option id="val1">Valmennus/Huolto/Johto</option>
+                <option id="val2">Hyökkääjä</option>
+                <option id="val3">Puolustaja</option>
+                <option id="val4">Maalivahti</option>
+              </select>
+            </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Motto:</label>
+                <textarea class="form-control" id="motto" name="motto" rows="3" value="\{{motto}}"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Peruuta</button>
+                <button type="submit" class="btn btn-primary">Muokkaa</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <script src="/jquery-3.4.1.min.js"></script>
-  <script src="/handlebars-v4.5.3.js"></script>
-  <script src="jasenet.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    </body>
-</html>
+   <!-- Ottelun muokkaus-->
+   <div class="modal fade" id="ottelunMuokkausModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ottelunMuokkausTitle">Ottelun Muokkaus</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/ottelut/ottelunMuokkaus" method="post">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Vastustaja:</label>
+              <input type="text" class="form-control" id="vastustaja" name="vastustaja" required>
+            </div>
+            <div class="form-group">
+            <label for="aika" class="col-form-label">Päivä ja aika</label>
+            <input class="form-control" type="datetime-local" value="2019-01-01T13:45:00" id="aika" name="aika" required>
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="recipient-name" class="col-form-label">Kotipeli:</label>
+                <input type="checkbox" class="form-control" id="kotipeli" name="kotipeli">
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Lopputulos:</label>
+                <input type="text" class="form-control" id="lopputulos" name="lopputulos">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Peruuta</button>
+                <button type="submit" class="btn btn-primary">Lisää</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

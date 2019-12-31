@@ -1,0 +1,52 @@
+.jumbotron {
+    background-image: url("/images/taustaa.jpg");
+    background-size: cover;
+
+}
+.page-footer {
+    background-image: url("/images/taustaa.jpg");
+    background-size: cover;
+    height: 5%;
+}
+.navbar{
+    background-image: url('/images/taustaa.jpg');
+}
+#navLogo {
+    max-width: 60px;
+    max-height: 60px;
+}
+.col-sm-4 {
+    background-color: gray;
+    border-block-color: yellow;
+}
+.col-sm-8 {
+    background-color: gray;
+    
+
+}
+body {
+    background-image: url('/images/bodytausta.jpg');
+    background-size: fill;
+}
+.content-section {
+    margin: 15px;
+}
+#section2 {
+    display: none;
+  }
+#section3 {
+    display: none;
+  }  
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+  }
