@@ -5,7 +5,6 @@ var User = require('../models/User');
 var passport = require('passport');
 
 router.get("/login", (req, res) => res.render("login"));
-
 router.get("/register", (req, res) => res.render("register"))
 
 
@@ -49,8 +48,8 @@ router.post("/register", (req, res) => {
                     email,
                     password
                 });
-            //Salasanan salaus
 
+            //Salasanan salaus
             bcrypt.genSalt(10, (err, salt) => 
             bcrypt.hash(newUser.password, salt, (err, hash) =>{
                 if(err) throw err;
@@ -65,11 +64,7 @@ router.post("/register", (req, res) => {
             .catch(err => console.log(err));
         }));
             }
-        });
-
-
-        
-       
+        });      
     }
 });
 
@@ -88,4 +83,5 @@ router.get('/logout', (req, res) =>{
     req.flash('success_msg', "Kirjauduit ulos");
     res.redirect('/');
 });
+
  module.exports = router;

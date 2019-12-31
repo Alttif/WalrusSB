@@ -18,7 +18,6 @@ const OtteluSchema = new mongoose.Schema({
         type: String
     }
 
-
 });
 const Ottelu = mongoose.model("Ottelu", OtteluSchema, "ottelu");
 module.exports = Ottelu;

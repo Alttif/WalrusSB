@@ -21,8 +21,6 @@ const PelaajaSchema = new mongoose.Schema({
         type: String
     }
 
-
-
 });
 const Pelaaja = mongoose.model("Pelaaja", PelaajaSchema, "pelaaja");
 module.exports = Pelaaja;

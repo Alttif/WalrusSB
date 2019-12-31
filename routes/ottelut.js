@@ -12,8 +12,6 @@ router.post("/ottelu", ensureAuthenticated, (req, res) =>{
 
     Ottelu.findOne({aika: aika}).then(ottelu => {
         if (ottelu) {   
-            console.log(aika);    
-
             res.redirect(url.format({
                 pathname:"/jasenet",
                 query: {
@@ -27,7 +25,6 @@ router.post("/ottelu", ensureAuthenticated, (req, res) =>{
                 kotipeli,
                 lopputulos
             });
-            console.log(newOttelu);
             newOttelu.save()
             .then(user => {
                 res.redirect(url.format({
@@ -45,7 +42,6 @@ router.post("/ottelu", ensureAuthenticated, (req, res) =>{
 //Seuraavan ottelun haku
 router.get("/seuraavaOttelu", (req, res) =>{
     var nyt = Date.now();
-
     Ottelu.aggregate([
         {
             $project : {
@@ -67,10 +63,8 @@ router.get("/seuraavaOttelu", (req, res) =>{
         ])
     .then(ottelu =>{
         Ottelu.findOne({_id: ottelu[0]._id}).then(otteluu =>{
-            console.log(otteluu);
             res.send(otteluu);
         })
-
     })
     .catch(err => console.log(err));
 });
@@ -92,7 +86,6 @@ router.get("/OtteluHaku", (req, res) =>{
 router.get("/muokkaaOttelu/:id", (req, res) =>{
     var id = req.params.id;
 
-
     Ottelu.findOne({_id: id}).then(ottelu => {
         if (ottelu) {       
             res.send(ottelu)
@@ -101,10 +94,11 @@ router.get("/muokkaaOttelu/:id", (req, res) =>{
     }})
             .catch(err => console.log(err));
 });
+
 //Ottelun Muokkaus
 router.post("/ottelunMuokkaus", ensureAuthenticated, (req, res) =>{
     var {_id, vastustaja, aika, kotipeli, lopputulos} = req.body;
-    console.log(_id, vastustaja,aika,kotipeli,lopputulos);
+
     Ottelu.updateOne(
         {_id: _id},
         {
@@ -116,7 +110,6 @@ router.post("/ottelunMuokkaus", ensureAuthenticated, (req, res) =>{
         }
 
     ).then(ottelu => {
-        console.log(ottelu);
         res.redirect(url.format({
             pathname:"/jasenet",
             query: {
@@ -132,7 +125,7 @@ router.post("/ottelunMuokkaus", ensureAuthenticated, (req, res) =>{
 //Ottelun Poisto
 router.post("/poistaOttelu/:id", ensureAuthenticated, function(req, res){
     var id = req.params.id;
-    console.log(id);
+    
     Ottelu.findOneAndDelete({_id: id}).then(poisto =>{
         res.redirect(url.format({
             pathname:"/jasenet",

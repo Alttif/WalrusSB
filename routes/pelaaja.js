@@ -13,12 +13,10 @@ router.post("/pelaaja", ensureAuthenticated, (req, res) =>{
     Pelaaja.findOne({pelinumero: pelinumero}).then(pelaaja => {
         let errors = [];
         if (pelaaja) {   
-
             errors.push({msq: "Pelinumerolla: " + pelinumero + " löytyy jo pelaaja!!"});
             res.redirect(url.format({
                 pathname:"/jasenet",
-                query: {
-                  
+                query: {                
                  }
               }));
         } else{
@@ -33,8 +31,7 @@ router.post("/pelaaja", ensureAuthenticated, (req, res) =>{
             .then(pelaaja => {
                 res.redirect(url.format({
                     pathname:"/jasenet",
-                    query: {
-                      
+                    query: {                     
                      }
                   }));
             })
@@ -55,6 +52,7 @@ router.get("/pelaajaHaku", (req, res) =>{
     }})
             .catch(err => console.log(err));
 });
+
 //pelaaja haku numerolla
 router.get("/muokkaaPelaaja/:pelinumero", (req, res) =>{
     var pelinumero = req.params.pelinumero;
@@ -67,6 +65,8 @@ router.get("/muokkaaPelaaja/:pelinumero", (req, res) =>{
     }})
             .catch(err => console.log(err));
 });
+
+//Pelaajan muokkaus
 router.post("/muokkaaPelaajaa", ensureAuthenticated, (req, res) =>{
     var {nimi, pelinumero, katisyys, pelipaikka, motto} = req.body;
     Pelaaja.updateOne(
@@ -76,35 +76,30 @@ router.post("/muokkaaPelaajaa", ensureAuthenticated, (req, res) =>{
                 pelinumero: pelinumero,
                 katisyys: katisyys,
                 pelipaikka: pelipaikka,
-                motto: motto
-            
+                motto: motto            
         }
 
     ).then(pelaaja => {
         res.redirect(url.format({
             pathname:"/jasenet",
-            query: {
-                
+            query: {              
              }
           }));
     })
-    .catch(err => console.log(err));
-
-        
+    .catch(err => console.log(err));        
 });
 
 //Pelaajan Poisto
-
 router.post("/poistaPelaaja/:pelinumero", ensureAuthenticated, function(req, res){
     var pelinumero = req.params.pelinumero;
     Pelaaja.findOneAndDelete({pelinumero: pelinumero}).then(poisto =>{
         res.redirect(url.format({
             pathname:"/jasenet",
-            query: {
-              
+            query: {            
              }
           }));
     })
     .catch(err => console.log(err));
 })
+
 module.exports = router;
