@@ -5,6 +5,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 
+
 var app = express();
 app.use(express.static(__dirname + '/views'));
 app.use(express.static(__dirname + '/node_modules'));
@@ -56,6 +57,8 @@ app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
 app.use("/ottelut", require("./routes/ottelut"));
 app.use("/pelaaja", require("./routes/pelaaja"));
+
+
 
 
 

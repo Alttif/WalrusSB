@@ -11,12 +11,14 @@ router.post("/pelaaja", ensureAuthenticated, (req, res) =>{
     var {nimi, pelinumero, katisyys, pelipaikka, motto} = req.body;
 
     Pelaaja.findOne({pelinumero: pelinumero}).then(pelaaja => {
+        let errors = [];
         if (pelaaja) {   
 
+            errors.push({msq: "Pelinumerolla: " + pelinumero + " löytyy jo pelaaja!!"});
             res.redirect(url.format({
                 pathname:"/jasenet",
                 query: {
-                   viesti: "Pelinumerolla löytyi jo pelaaja!"
+                  
                  }
               }));
         } else{

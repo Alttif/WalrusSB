@@ -53,5 +53,12 @@ body {
   .pelaajakuva {
       max-width: 60px;
       max-height: 80px;
+      transition: 0.5s;
+      
+  }
+  .pelaajakuva:hover {
+      -ms-transform: scale(10);
+      -webkit-transform: scale(10);
+      transform: scale(10);
   }
   
